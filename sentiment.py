@@ -18,10 +18,17 @@ dependency_parser = StanfordDependencyParser(path_to_jar=path_to_jar, path_to_mo
 is_noun = lambda pos: pos[:2] == 'NN'
 
 
-
-
-
-sent = "The look of this cloth is great, it's the material that is mediocre"
+print()
+print("Enter product review statement")
+print()
+print("Such as:")
+print("The look of this cloth is great, it's the material that is mediocre")
+print("Quality of the cloth is really bad")
+print("Poor quality of hardware is the major issue")
+print("UX of this app sucks")
+print()
+sent = input("Enter here:")
+# sent = "The look of this cloth is great, it's the material that is mediocre"
 # sent = "Quality of the cloth is really bad"
 # sent = "Poor quality of hardware is the major issue"
 # sent = "UX of this app sucks"
