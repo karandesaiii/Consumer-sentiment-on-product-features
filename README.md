@@ -12,8 +12,11 @@ Run sentiment.py. The code will ask for entering a product review statement.
 Examples:
 
 "The look of this cloth is great, it's the material that is mediocre"
+
 "Quality of the cloth is really bad"
+
 "Poor quality of hardware is the major issue"
+
 "UX of this app sucks"
 
 scrape_me_amazon.py was designed to scrap reviews from Amazon but the code is not functioning as of now.
