@@ -4,11 +4,16 @@ from nltk.parse.stanford import StanfordDependencyParser
 import os
 import networkx as nx
 from textblob import TextBlob
-java_path = "C:/Program Files/Java/jre1.8.0_311/bin/java.exe"
-os.environ['JAVAHOME'] = java_path
+import configparser
 
-path_to_jar = 'C:/Users/Arya/Downloads/Karan/Projects/Amazon-review-summarization-master/stanford-corenlp-3.8.0.jar'
-path_to_models_jar = 'C:/Users/Arya/Downloads/Karan/Projects/Amazon-review-summarization-master/stanford-corenlp-3.8.0-models.jar'
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+# java_path = "C:/Program Files/Java/jre1.8.0_311/bin/java.exe"
+os.environ['JAVAHOME'] = config['JAVA']['java_path']
+
+path_to_jar = config['STANFORD']['jar_path']
+path_to_models_jar = config['STANFORD']['models_jar_path']
 dependency_parser = StanfordDependencyParser(path_to_jar=path_to_jar, path_to_models_jar=path_to_models_jar)
 is_noun = lambda pos: pos[:2] == 'NN'
 
@@ -16,14 +21,13 @@ is_noun = lambda pos: pos[:2] == 'NN'
 
 
 
-#sent = "I have an ipod and it is a great buy but I'm probably the only person who doesn't like iTunes."
-#sent = "The look of this cloth is great, it's the material that is mediocre"
-sent = "It has poor Microsoft Office performance"
-sent = "Poor quality of hardware"
-sent = "The features are overwhelming"
-# sent = "Runs slow after few months of use"
+sent = "The look of this cloth is great, it's the material that is mediocre"
+# sent = "Quality of the cloth is really bad"
+# sent = "Poor quality of hardware is the major issue"
+# sent = "UX of this app sucks"
 
-
+print()
+print("Consumer review :",sent)
 
 stop_words = set(stopwords.words('english'))
 tokenized = nltk.word_tokenize(sent)
@@ -99,4 +103,12 @@ for key, value in clusters.items():
            sentence += tokenized[int(i)] + " "
         print (sentence)
         result = TextBlob(sentence)
-        print (result.sentiment)
+        score_final=result.sentiment.polarity
+        print ("Sentiment score",score_final)
+        if score_final<0:
+            print("Sentiment is negative")
+        elif score_final==0:
+            print("Sentiment is neutral")
+        else:
+            print("Sentiment is positive")
+        print()
